@@ -9,8 +9,8 @@ def load_json():
     return journal_list
 
 def compute_phi(file,event):
-    n_11,n_00,n_10,n_01 = 0  
-    n_1p,n_0p,n_p1,n_p0 = 0 
+    n_11,n_00,n_10,n_01 = 0,0,0,0
+    n_1p,n_0p,n_p1,n_p0 = 0,0,0,0 
     for i in file:
         if event in i['events'] and i['squirrel']:
             n_11 += 1
@@ -32,13 +32,25 @@ def compute_phi(file,event):
     return phi
 
 def compute_correlations(file):
-    data = load_json()
     correlation_dict = {}
     for i in data:
         for event in i['events']:
             phi = compute_phi(data,event)
             correlation_dict[event] = phi
     return correlation_dict
+
+def diagnose(file):
+    file = load_json()
+    correlations = compute_correlations(file)
+    max_correlation  = max(zip(correlations.values(),correlations.keys()))[1]
+    max_corr_value = max(correlations.values())
+    min_correlation = min(zip(correlations.values(),correlations.keys()))[1]
+    min_corr_value = min(correlations.values())
+    print(f"""Highest correlation value is for {max_correlation} : {max_corr_value}
+Lowest correlation value is for {min_correlation} : {min_corr_value}
+""")
+
+
 
 
 
