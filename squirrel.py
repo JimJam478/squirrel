@@ -29,6 +29,18 @@ def compute_phi(file,event):
         if not i['squirrel']:
             n_p0 += 1
     phi = (n_11 * n_00 - n_10 * n_01) / math.sqrt((n_1p * n_0p * n_p1 * n_p0))
+    return phi
+
+def compute_correlations(file):
+    data = load_json()
+    correlation_dict = {}
+    for i in data:
+        for event in i['events']:
+            phi = compute_phi(data,event)
+            correlation_dict[event] = phi
+    return correlation_dict
+
+
 
     
     
