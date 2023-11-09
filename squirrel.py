@@ -33,9 +33,9 @@ def compute_phi(file,event):
 
 def compute_correlations(file):
     correlation_dict = {}
-    for i in data:
+    for i in file:
         for event in i['events']:
-            phi = compute_phi(data,event)
+            phi = compute_phi(file,event)
             correlation_dict[event] = phi
     return correlation_dict
 
@@ -49,6 +49,13 @@ def diagnose(file):
     print(f"""Highest correlation value is for {max_correlation} : {max_corr_value}
 Lowest correlation value is for {min_correlation} : {min_corr_value}
 """)
+
+def main():
+    data = load_json()
+    diagnose(data)
+
+if __name__ == "__main__":
+    main()
 
 
 
