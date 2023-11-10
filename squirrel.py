@@ -40,7 +40,6 @@ def compute_correlations(file):
     return correlation_dict
 
 def diagnose(file):
-    file = load_json()
     correlations = compute_correlations(file)
     max_correlation  = max(zip(correlations.values(),correlations.keys()))[1]
     max_corr_value = max(correlations.values())
